@@ -1,5 +1,5 @@
 ---
-title: Handlebars模板引擎(2) - Handlebars的使用
+title: Handlebars模板引擎(2) - 使用Handlebars
 author: Justin
 cover: /images/about-bg.jpg
 tags:
