@@ -76,7 +76,91 @@
 
     <!-- Custom CSS -->
     <%- css('css/style.css') %>
+    <style>
 
+    .homepage-hero-module {
+      border-right: none;
+      border-left: none;
+      position: relative;
+    }
+
+    .no-video .video-container video,
+    .touch .video-container video {
+      display: none;
+    }
+
+    .no-video .video-container .poster,
+    .touch .video-container .poster {
+      display: block !important;
+    }
+
+    .video-container {
+      position: relative;
+      bottom: 0%;
+      left: 0%;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-container .poster img {
+      width: 100%;
+      bottom: 0;
+      position: absolute;
+    }
+
+    .video-container .filter {
+      z-index: 100;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.4);
+      width: 100%;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      bottom: 0;
+    }
+
+    .video-container video.fillWidth {
+      width: 100%;
+    }
+
+    .title-container {
+      position: absolute;
+      top: 35%;
+      left: 0;
+      right: 0;
+      font-family: 'Roboto', sans-serif;
+      z-index: 999;
+    }
+
+    .title-container .headline {
+      text-align: center;
+      color: #fff;
+    }
+
+    .title-container h3, .title-container h5 {
+      position: relative;
+      font-weight: 300;
+    }
+
+    .title-container h3 {
+      font-size: 42px;
+      line-height: 44px;
+      margin: 15px 0 10px;
+    }
+
+    .title-container h5 {
+      font-size: 22px;
+      margin: 20px 0 0;
+    }
+
+    </style>
     <!-- Custom Fonts -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
@@ -99,5 +183,88 @@
     <% if (theme.favicon){ %>
     <link rel="icon" href="<%- theme.favicon %>">
     <% } %>
-	
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        //jQuery is required to run this code
+    $( document ).ready(function() {
+
+        scaleVideoContainer();
+
+        initBannerVideoSize('.video-container .poster img');
+        initBannerVideoSize('.video-container .filter');
+        initBannerVideoSize('.video-container video');
+
+        $(window).on('resize', function() {
+            scaleVideoContainer();
+            scaleBannerVideoSize('.video-container .poster img');
+            scaleBannerVideoSize('.video-container .filter');
+            scaleBannerVideoSize('.video-container video');
+        });
+
+    });
+
+    function scaleVideoContainer() {
+
+        var height = $(window).height() + 5;
+        var unitHeight = parseInt(height) + 'px';
+        $('.homepage-hero-module').css('height',unitHeight);
+
+    }
+
+    function initBannerVideoSize(element){
+
+        $(element).each(function(){
+            $(this).data('height', $(this).height());
+            $(this).data('width', $(this).width());
+        });
+
+        scaleBannerVideoSize(element);
+
+    }
+
+    function scaleBannerVideoSize(element){
+
+        var windowWidth = $(window).width(),
+        windowHeight = $(window).height() + 5,
+        videoWidth,
+        videoHeight;
+
+        // console.log(windowHeight);
+
+        $(element).each(function(){
+            var videoAspectRatio = $(this).data('height')/$(this).data('width');
+
+            $(this).width(windowWidth);
+
+            if(windowWidth < 1000){
+                videoHeight = windowHeight;
+                videoWidth = videoHeight / videoAspectRatio;
+                $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
+
+                $(this).width(videoWidth).height(videoHeight);
+            }
+
+            $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
+
+        });
+    }
+
+    </script>
+
+
+    <script>
+       $(function() {
+           $("a[href=#content]").click(function() {
+               $("html,body").animate({
+                 scrollTop:$("#content").offset().top
+               }, "show");
+               return false;
+           });
+       });    
+    </script>
 </head>

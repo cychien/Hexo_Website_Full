@@ -8,7 +8,7 @@ categories:
 - Programming
 ---
 
-### Function 描述
+## Function 描述
 
 java.util.Collection 提供了sort方法，對List進行排序
 
@@ -18,7 +18,7 @@ java.util.Collection 提供了sort方法，對List進行排序
 
 Comparator則允許你以不同的方法對List進行排序
 
-### 實作細節
+## 實作細節
 
 想對一個物件進行排序，必須先予他一個排序的規則，而方法就是使被排序的物件實作  **java.lang.Comparable** 介面，且實作compareTo()方法，這個方法必須傳入被比較的物件，然後傳回大於0、等於0、小於0的數，以下是一個範例:
 ```Java
@@ -84,7 +84,7 @@ Comparator是指實作了java.util.Comparator介面的物件，是一個可加�
 
 其實，String, Integer都能直接用sort()方法進行排序，最根本的原因就是他們已經實作了Comparable介面
 
-### Further More
+## Further More
 
 1.  底層的排序實現是Merge Sort，所需時間複雜度是O( nlog(n) )，且是一個stable的排序
 
