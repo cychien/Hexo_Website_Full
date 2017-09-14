@@ -1,7 +1,7 @@
 ---
 title: Handlebars模板引擎(1) - 關於模板引擎和Handlebars簡介
 author: Justin
-cover: /images/home-bg.jpg
+cover: /images/eagle.jpg
 tags:
 categories: 
 - Programming
