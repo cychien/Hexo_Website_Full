@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="記錄著成長點滴">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Justin Chien">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Collection Method - Sort"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="記錄著成長點滴" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Justin Blog"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+        <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Collection Method - Sort - Justin Blog</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+
+    .homepage-hero-module {
+      border-right: none;
+      border-left: none;
+      position: relative;
+    }
+
+    .no-video .video-container video,
+    .touch .video-container video {
+      display: none;
+    }
+
+    .no-video .video-container .poster,
+    .touch .video-container .poster {
+      display: block !important;
+    }
+
+    .video-container {
+      position: relative;
+      bottom: 0%;
+      left: 0%;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .video-container .poster img {
+      width: 100%;
+      bottom: 0;
+      position: absolute;
+    }
+
+    .video-container .filter {
+      z-index: 100;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.4);
+      width: 100%;
+    }
+
+    .video-container video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      bottom: 0;
+    }
+
+    .video-container video.fillWidth {
+      width: 100%;
+    }
+
+    .title-container {
+      position: absolute;
+      top: 35%;
+      left: 0;
+      right: 0;
+      font-family: 'Roboto', sans-serif;
+      z-index: 999;
+    }
+
+    .title-container .headline {
+      text-align: center;
+      color: #fff;
+    }
+
+    .title-container h3, .title-container h5 {
+      position: relative;
+      font-weight: 300;
+    }
+
+    .title-container h3 {
+      font-size: 42px;
+      line-height: 44px;
+      margin: 15px 0 10px;
+    }
+
+    .title-container h5 {
+      font-size: 22px;
+      margin: 20px 0 0;
+    }
+
+    </style>
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-101659054-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+    <!-- favicon -->
+    
+    <link rel="icon" href="/images/favicon.ico">
+    
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous">
+    </script>
+
+    <script>
+        //jQuery is required to run this code
+    $( document ).ready(function() {
+
+        scaleVideoContainer();
+
+        initBannerVideoSize('.video-container .poster img');
+        initBannerVideoSize('.video-container .filter');
+        initBannerVideoSize('.video-container video');
+
+        $(window).on('resize', function() {
+            scaleVideoContainer();
+            scaleBannerVideoSize('.video-container .poster img');
+            scaleBannerVideoSize('.video-container .filter');
+            scaleBannerVideoSize('.video-container video');
+        });
+
+    });
+
+    function scaleVideoContainer() {
+
+        var height = $(window).height() + 5;
+        var unitHeight = parseInt(height) + 'px';
+        $('.homepage-hero-module').css('height',unitHeight);
+
+    }
+
+    function initBannerVideoSize(element){
+
+        $(element).each(function(){
+            $(this).data('height', $(this).height());
+            $(this).data('width', $(this).width());
+        });
+
+        scaleBannerVideoSize(element);
+
+    }
+
+    function scaleBannerVideoSize(element){
+
+        var windowWidth = $(window).width(),
+        windowHeight = $(window).height() + 5,
+        videoWidth,
+        videoHeight;
+
+        // console.log(windowHeight);
+
+        $(element).each(function(){
+            var videoAspectRatio = $(this).data('height')/$(this).data('width');
+
+            $(this).width(windowWidth);
+
+            if(windowWidth < 1000){
+                videoHeight = windowHeight;
+                videoWidth = videoHeight / videoAspectRatio;
+                $(this).css({'margin-top' : 0, 'margin-left' : -(videoWidth - windowWidth) / 2 + 'px'});
+
+                $(this).width(videoWidth).height(videoHeight);
+            }
+
+            $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
+
+        });
+    }
+
+    </script>
+
+
+    <script>
+       $(function() {
+           $("a[href=#content]").click(function() {
+               $("html,body").animate({
+                 scrollTop:$("#content").offset().top
+               }, "show");
+               return false;
+           });
+       });    
+    </script>
+
+    <style>
+      @media (max-width: 768px) {
+        #forBigScreen {
+          display: none;
+        }
+      }
+      @media (min-width: 768px) {
+        #forSmallScreen {
+          display: none;
+        }
+      }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- Menu -->
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Justin Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                
+                    <li>
+                        <a href="/">
+                            
+                                Home
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/archives">
+                            
+                                Archives
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/tags">
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="/categories">
+                            
+                                Categories
+                            
+                        </a>
+                    </li>
+                
+                    <li>
+                        <a href="https://github.com/cychien">
+                            
+                                <i class="fa fa-github fa-stack-2x"></i>
+                            
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+    <!-- Main Content -->
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
+
+<header class="intro-header" style="background-image: url('/images/contact-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Collection Method - Sort</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                            Posted by Justin on
+                        
+                        
+                            2017-06-27
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+                <div class="col-lg-4 col-lg-offset-2 col-md-5 col-md-offset-1 post-tags">
+                    
+                        
+
+<a href="/categories/Programming/">Programming</a>
+
+                    
+                </div>
+                <div class="col-lg-4 col-md-5 post-categories">
+                    
+                </div>
+            
+
+            <!-- Gallery -->
+            
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="Function-描述"><a href="#Function-描述" class="headerlink" title="Function 描述"></a>Function 描述</h2><p>java.util.Collection 提供了sort方法，對List進行排序</p>
+<blockquote>
+<p>public static &lt; T&gt; void sort(List&lt; T&gt; list, Comparator&lt; ? super T&gt; c)  </p>
+</blockquote>
+<p>由於List有索引，因此才能進行排序</p>
+<p>Comparator則允許你以不同的方法對List進行排序</p>
+<h2 id="實作細節"><a href="#實作細節" class="headerlink" title="實作細節"></a>實作細節</h2><p>想對一個物件進行排序，必須先予他一個排序的規則，而方法就是使被排序的物件實作  <strong>java.lang.Comparable</strong> 介面，且實作compareTo()方法，這個方法必須傳入被比較的物件，然後傳回大於0、等於0、小於0的數，以下是一個範例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Time</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt; <span class="title">Time</span>&gt; </span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> hour;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> minute;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> second;</div><div class="line"></div><div class="line">	<span class="comment">//Constructor</span></div><div class="line">	Time(<span class="keyword">int</span> hour, <span class="keyword">int</span> minute, <span class="keyword">int</span> second) &#123;</div><div class="line">		<span class="keyword">this</span>.hour = hour;</div><div class="line">		<span class="keyword">this</span>.minute = minute;</div><div class="line">		<span class="keyword">this</span>.second = second;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Time other)</span> </span>&#123;</div><div class="line">		<span class="keyword">int</span> hourDifference = <span class="keyword">this</span>.hour - other.hour;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(hourDifference != <span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> hourDifference;</div><div class="line"></div><div class="line">		<span class="keyword">int</span> minuteDifference = <span class="keyword">this</span>.minute - other.minute;</div><div class="line"></div><div class="line">		<span class="keyword">if</span>(minuteDifference != <span class="number">0</span>)</div><div class="line">			<span class="keyword">return</span> minuteDifference;</div><div class="line"></div><div class="line">		<span class="keyword">int</span> secondDifference = <span class="keyword">this</span>.second - other.second;</div><div class="line"></div><div class="line">		<span class="keyword">return</span> secondDifference;			</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>若是a.compareTo(b)這樣的一個比較，則傳回值大於0，表示a&gt;b;傳回值小於0，表示a&lt; b;傳回值等於0，表示a=b</p>
+<p>那另一個參數 <strong>Comparator</strong>是什麼呢?</p>
+<p>Comparator是指實作了java.util.Comparator介面的物件，是一個可加可不加的parameter，若沒有加，則值視為null，代表依原來預設的規則進行排序( compareTo() )，若有加，則改依Comparator的規則進行排序，以下是範例:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReverseStringComparator</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt; <span class="title">ReverseStringComparator</span>&gt; </span>&#123;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(String s1, String s2)</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> -s1.compareTo(s2);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意的是必須要實作compare()方法，這個方法將會取代原本的比較方式，傳回值一樣是大於0、小於0或等於0，意義也都一樣</p>
+<p>在以下的情況中，你必須使用到Comparator</p>
+<ol>
+<li><p>不能修改原始碼(修改了就不是標準API了)</p>
+</li>
+<li><p>class被宣告為final，無法先繼承再做修改</p>
+</li>
+<li><p>想有不只一種排序的方法</p>
+</li>
+</ol>
+<p>其實，String, Integer都能直接用sort()方法進行排序，最根本的原因就是他們已經實作了Comparable介面</p>
+<h2 id="Further-More"><a href="#Further-More" class="headerlink" title="Further More"></a>Further More</h2><ol>
+<li><p>底層的排序實現是Merge Sort，所需時間複雜度是O( nlog(n) )，且是一個stable的排序</p>
+</li>
+<li><p>Collections裡有一個方法 <strong>reverseOrder()</strong> 會傳回一個Comparator，倒轉原來的排序方式</p>
+</li>
+<li><p>若被比較的物件沒有實作Comparable介面，則會拋出 <strong>ClassCastException</strong> 例外。原因是當a物件與b物件進行比較時，a物件會先cast成Comparable型態，若沒實作Comparable，就會出錯</p>
+</li>
+</ol>
+
+
+                
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5994f9788dcd71ae"></script>
+
+                    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+                    <div class="addthis_inline_share_toolbox"></div>
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+    <hr />
+    <h3>Kommentare:</h3>
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+
+
+                </div>
+            
+        </div>
+    </div>
+</article>
+
+    <!-- Footer -->
+    <hr />
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="https://github.com/cychien" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+
+                    
+                        <li>
+                            <a href="mailto:xyz030206@gmail.com" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+                <p class="copyright text-muted">&copy; 2017 Justin Chien<br></p>
+                <p class="copyright text-muted">Original Theme <a target="_blank" href="http://startbootstrap.com/template-overviews/clean-blog/">Clean Blog</a> from <a href="http://startbootstrap.com/" target="_blank">Start Bootstrap</a></p>
+                <p class="copyright text-muted">Adapted for <a target="_blank" href="https://hexo.io/">Hexo</a> by <a href="http://www.codeblocq.com/" target="_blank">Jonathan Klughertz</a></p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+    <!-- After footer scripts -->
+    
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Bootstrap -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+<script type="text/javascript">
+    var disqus_shortname = 'cychien';
+
+    (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+</body>
+
+</html>
