@@ -5,7 +5,7 @@ author: Justin
 cover: /images/contact-bg.jpg
 tags:
 categories: 
-- Programming
+- Java
 ---
 
 ## Function 描述

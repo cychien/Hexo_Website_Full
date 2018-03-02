@@ -4,7 +4,8 @@ author: Justin
 cover: /images/about-bg.jpg
 tags:
 categories: 
-- Programming
+- NodeJS
+date: 2017-09-14 12:47:07
 ---
 Handlebars是一個可用於clint端或server端的模板引擎，Handlebars由javascript寫成。
 
